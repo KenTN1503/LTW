@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang Mua Hàng</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+  <div class="container mx-auto p-4">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white p-4 rounded-lg shadow-md mb-6">
+      <h1 class="text-2xl font-bold text-center">Cửa Hàng Trực Tuyến</h1>
+    </header>
+
+    <!-- Pro<!-- Product List -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  <div class="bg-white p-4 rounded-lg shadow-md">
+    <img src="https://cello.vn/image/cache/catalog/Cello/SanPham/Phu%20Kien/2024/iPhone-16-Plus/UAG/Plyo/UAG_HS_APPLE_IPHONE-2024-GEORGE_PLYO-PRO_ICE_WHITE_STD_01-500x500.jpg" alt="Sản phẩm 1" class="w-full h-128 object-cover rounded-md mb-4">
+    <h2 class="text-lg font-semibold">Ốp Lưng iPhone 16 Plus UAG Plyo</h2>
+    <p class="text-gray-600">Giá: 200,000 VNĐ</p>
+    <button onclick="addToCart('Sản phẩm 1', 200000)" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Thêm vào giỏ</button>
+  </div>
+  <div class="bg-white p-4 rounded-lg shadow-md">
+    <img src="https://mipow.vn/wp-content/uploads/2024/12/op-lung-mipow-miffy-premium-magsafe-case-for-iphone-16-series-sports-1.webp" alt="Sản phẩm 2" class="w-full h-128 object-cover rounded-md mb-4">
+    <h2 class="text-lg font-semibold">Ốp lưng Mipow Miffy Premium</h2>
+    <p class="text-gray-600">Giá: 300,000 VNĐ</p>
+    <button onclick="addToCart('Sản phẩm 2', 300000)" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Thêm vào giỏ</button>
+  </div>
+  <div class="bg-white p-4 rounded-lg shadow-md">
+    <img src="https://bizweb.dktcdn.net/100/446/885/products/iphone14milanaurora61251716635.jpg?v=1726732006580" alt="Sản phẩm 3" class="w-full h-128 object-cover rounded-md mb-4">
+    <h2 class="text-lg font-semibold">Ốp lưng iPhone 14 Series - Gear4 Milan Snap</h2>
+    <p class="text-gray-600">Giá: 350,000 VNĐ</p>
+    <button onclick="addToCart('Sản phẩm 3', 350000)" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Thêm vào giỏ</button>
+  </div>
+</div>
+    </div>
+
+    <!-- Cart Summary -->
+    <div class="mt-8 bg-white p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-bold mb-4">Giỏ Hàng</h2>
+      <ul id="cart-items" class="mb-4"></ul>
+      <p class="text-lg font-semibold">Tổng tiền: <span id="cart-total">0 VNĐ</span></p>
+      <button onclick="proceedToPayment()" class="mt-4 bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600">Thanh Toán Qua MoMo</button>
+    </div>
+  </div>
+
+  <script>
+    let cart = [];
+
+    function addToCart(productName, price) {
+      cart.push({ name: productName, price: price });
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartItems = document.getElementById('cart-items');
+      const cartTotal = document.getElementById('cart-total');
+      cartItems.innerHTML = '';
+
+      let total = 0;
+      cart.forEach(item => {
+        total += item.price;
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - ${item.price.toLocaleString()} VNĐ`;
+        cartItems.appendChild(li);
+      });
+
+      cartTotal.textContent = `${total.toLocaleString()} VNĐ`;
+    }
+
+    async function proceedToPayment() {
+      if (cart.length === 0) {
+        alert('Giỏ hàng trống! Vui lòng thêm sản phẩm.');
+        return;
+      }
+
+      const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+      const orderInfo = `Thanh toán đơn hàng: ${cart.map(item => item.name).join(', ')}`;
+
+      try {
+        console.log('Sending payment request:', { amount: totalAmount.toString(), orderInfo }); // Debug
+        const response = await fetch('http://localhost:5000/payment', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            amount: totalAmount.toString(),
+            orderInfo: orderInfo,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        console.log('Payment response:', result); // Debug
+        if (result.payUrl) {
+          window.open(result.payUrl, '_blank');
+        } else {
+          alert('Lỗi khi tạo thanh toán MoMo: ' + (result.message || 'Vui lòng thử lại.'));
+        }
+      } catch (error) {
+        console.error('Fetch error:', error);
+        alert('Lỗi kết nối server: ' + error.message);
+      }
+    }
+  </script>
+
+
+</body>
+</html>
+```
