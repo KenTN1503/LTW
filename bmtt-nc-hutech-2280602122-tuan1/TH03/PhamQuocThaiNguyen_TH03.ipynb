@@ -1,0 +1,254 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<div class=\"alert alert-block alert-info\"><h1>1.6.3 Bài thực hành 03: List, Tuple, Dictionary</h1></div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> Câu 01: Viết một chương trình để tính tổng của tất cả các số chẵn trong một List."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Tổng các số chẵn trong List là: 8\n"
+     ]
+    }
+   ],
+   "source": [
+    "def tinh_tong_so_chan(lst):\n",
+    "    tong = 0\n",
+    "    for num in lst:\n",
+    "        if num % 2 == 0:\n",
+    "            tong += num\n",
+    "    return tong\n",
+    "\n",
+    "# Nhập danh sách từ người dùng và xử lý chuỗi\n",
+    "input_list = input(\"Nhập danh sách các số, cách nhau bằng dấu phẩy: \")\n",
+    "numbers = list(map(int, input_list.split(',')))\n",
+    "\n",
+    "# Sử dụng hàm và in kết quả\n",
+    "tong_chan = tinh_tong_so_chan(numbers)\n",
+    "print(\"Tổng các số chẵn trong List là:\", tong_chan)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> Câu 02: Viết chương trình để đảo ngược vị trí của các phần tử trong một danh sách."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "List sau khi đảo ngược: [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]\n"
+     ]
+    }
+   ],
+   "source": [
+    "def dao_nguoc_list(lst):\n",
+    "    return lst[::-1]\n",
+    "\n",
+    "# Nhập danh sách từ người dùng và xử lý chuỗi\n",
+    "input_list = input(\"Nhập danh sách các số, cách nhau bằng dấu phẩy: \")\n",
+    "numbers = list(map(int, input_list.split(',')))\n",
+    "\n",
+    "# Sử dụng hàm và in kết quả\n",
+    "list_dao_nguoc = dao_nguoc_list(numbers)\n",
+    "print(\"List sau khi đảo ngược:\", list_dao_nguoc)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> Câu 03: Viết chương trình để tạo một Tuple từ một List nhập vào từ bàn phím."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "List:  [1, -2, 3, -4, 5, -6, 7, -8, 9, -10]\n",
+      "Tuple từ List: (1, -2, 3, -4, 5, -6, 7, -8, 9, -10)\n"
+     ]
+    }
+   ],
+   "source": [
+    "def tao_tuple_tu_list(lst):\n",
+    "    return tuple(lst)\n",
+    "\n",
+    "# Nhập danh sách từ người dùng và xử lý chuỗi\n",
+    "input_list = input(\"Nhập danh sách các số, cách nhau bằng dấu phẩy: \")\n",
+    "numbers = list(map(int, input_list.split(',')))\n",
+    "\n",
+    "my_tuple = tao_tuple_tu_list(numbers)\n",
+    "print(\"List: \", numbers)\n",
+    "print(\"Tuple từ List:\", my_tuple)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> Câu 04: Viết chương trình để truy cập các phần tử đầu tiên và cuối cùng trong một Tuple."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Phần tử đầu tiên: 1\n",
+      "Phần tử cuối cùng: 3\n"
+     ]
+    }
+   ],
+   "source": [
+    "def truy_cap_phan_tu(tuple_data):\n",
+    "    first_element = tuple_data[0]\n",
+    "    last_element = tuple_data[-1]\n",
+    "    return first_element, last_element\n",
+    "\n",
+    "# Nhập tuple từ người dùng\n",
+    "input_tuple = eval(input(\"Nhập tuple, ví dụ (1, 2, 3): \")) # Using eval for direct tuple input\n",
+    "\n",
+    "first, last = truy_cap_phan_tu(input_tuple)\n",
+    "\n",
+    "# In kết quả\n",
+    "print(\"Phần tử đầu tiên:\", first)\n",
+    "print(\"Phần tử cuối cùng:\", last)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> Câu 05: Viết chương trình để đếm số lần xuất hiện của mỗi phần tử trong một List và lưu kết quả vào một Dictionary."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Số lần xuất hiện của các phần tử: {'Trần,': 1, 'Phạm,': 1, 'Hoàng,': 1, 'Anh': 1}\n"
+     ]
+    }
+   ],
+   "source": [
+    "def dem_so_lan_xuat_hien(lst):\n",
+    "    count_dict = {}\n",
+    "    for item in lst:\n",
+    "        if item in count_dict:\n",
+    "            count_dict[item] += 1\n",
+    "        else:\n",
+    "            count_dict[item] = 1\n",
+    "    return count_dict\n",
+    "\n",
+    "# Nhập danh sách từ người dùng\n",
+    "input_string = input(\"Nhập danh sách các từ, cách nhau bằng dấu cách: \")\n",
+    "word_list = input_string.split()\n",
+    "\n",
+    "# Sử dụng hàm và in kết quả\n",
+    "so_lan_xuat_hien = dem_so_lan_xuat_hien(word_list)\n",
+    "print(\"Số lần xuất hiện của các phần tử:\", so_lan_xuat_hien)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "> Câu 06: Viết chương trình để xóa một phần tử từ Dictionary theo key đã cho."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Dictionary ban đầu: {'a': 1, 'b': 2, 'c': 3, 'd': 4}\n",
+      "Phần tử đã được xóa từ Dictionary: {'a': 1, 'c': 3, 'd': 4}\n"
+     ]
+    }
+   ],
+   "source": [
+    "def xoa_phan_tu(dictionary, key):\n",
+    "    if key in dictionary:\n",
+    "        del dictionary[key]\n",
+    "        return True\n",
+    "    else:\n",
+    "        return False\n",
+    "\n",
+    "# Sử dụng hàm và in kết quả\n",
+    "my_dict = {'a': 1, 'b': 2, 'c': 3, 'd': 4}\n",
+    "print(\"Dictionary ban đầu:\", my_dict)\n",
+    "key_to_delete = input(\"Nhập khóa cần xóa (ví dụ: b): \")\n",
+    "\n",
+    "result = xoa_phan_tu(my_dict, key_to_delete)\n",
+    "\n",
+    "if result:\n",
+    "    print(\"Phần tử đã được xóa từ Dictionary:\", my_dict)\n",
+    "else:\n",
+    "    print(\"Không tìm thấy phần tử cần xóa trong Dictionary.\")"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.13.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
