@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Caesar, Vigenere, Rail Fence, Playfair & Transposition Cipher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: white;
+            margin: 40px;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+        }
+        h2 {
+            text-align: center;
+        }
+        form {
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        label {
+            display: block;
+            margin-top: 12px;
+        }
+        textarea, input[type=number], input[type=text], input[type=submit] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            font-size: 16px;
+        }
+        .result {
+            margin-top: 20px;
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Caesar Cipher - Mã hóa & Giải mã</h2>
+        <form method="POST" action="/caesar">
+            <label for="caesar_text">Văn bản:</label>
+            <textarea name="text" id="caesar_text" required>{{ caesar_text or '' }}</textarea>
+
+            <label for="caesar_key">Khóa (Shift):</label>
+            <input type="number" name="key" id="caesar_key" value="{{ caesar_key or 0 }}" required>
+
+            <input type="submit" name="action" value="encrypt_caesar">
+            <input type="submit" name="action" value="decrypt_caesar">
+        </form>
+
+        {% if caesar_result %}
+        <div class="result">
+            <p>Kết quả Caesar ({{ 'Mã hóa' if caesar_action == 'encrypt_caesar' else 'Giải mã' }}):</p>
+            <p>{{ caesar_result }}</p>
+        </div>
+        {% endif %}
+
+        <h2>Vigenere Cipher - Mã hóa & Giải mã</h2>
+        <form method="POST" action="/vigenere">
+            <label for="vigenere_text">Văn bản:</label>
+            <textarea name="text" id="vigenere_text" required>{{ vigenere_text or '' }}</textarea>
+
+            <label for="vigenere_key">Khóa (Từ khóa):</label>
+            <input type="text" name="key" id="vigenere_key" value="{{ vigenere_key or '' }}" required>
+
+            <input type="submit" name="action" value="encrypt_vigenere">
+            <input type="submit" name="action" value="decrypt_vigenere">
+        </form>
+
+        {% if vigenere_result %}
+        <div class="result">
+            <p>Kết quả Vigenere ({{ 'Mã hóa' if vigenere_action == 'encrypt_vigenere' else 'Giải mã' }}):</p>
+            <p>{{ vigenere_result }}</p>
+        </div>
+        {% endif %}
+
+        <h2>Rail Fence Cipher - Mã hóa & Giải mã</h2>
+        <form method="POST" action="/railfence">
+            <label for="railfence_text">Văn bản:</label>
+            <textarea name="text" id="railfence_text" required>{{ railfence_text or '' }}</textarea>
+
+            <label for="railfence_rails">Số Rails:</label>
+            <input type="number" name="rails" id="railfence_rails" value="{{ railfence_rails or 3 }}" min="2" required>
+
+            <input type="submit" name="action" value="encrypt_railfence">
+            <input type="submit" name="action" value="decrypt_railfence">
+        </form>
+
+        {% if railfence_result %}
+        <div class="result">
+            <p>Kết quả Rail Fence ({{ 'Mã hóa' if railfence_action == 'encrypt_railfence' else 'Giải mã' }}):</p>
+            <p>{{ railfence_result }}</p>
+        </div>
+        {% endif %}
+
+        <h2>Playfair Cipher - Mã hóa & Giải mã</h2>
+        <form method="POST" action="/playfair">
+            <label for="playfair_text">Văn bản:</label>
+            <textarea name="text" id="playfair_text" required>{{ playfair_text or '' }}</textarea>
+
+            <label for="playfair_key">Khóa (Từ khóa):</label>
+            <input type="text" name="key" id="playfair_key" value="{{ playfair_key or '' }}" required>
+
+            <input type="submit" name="action" value="encrypt_playfair">
+            <input type="submit" name="action" value="decrypt_playfair">
+        </form>
+
+        {% if playfair_result %}
+        <div class="result">
+            <p>Kết quả Playfair ({{ 'Mã hóa' if playfair_action == 'encrypt_playfair' else 'Giải mã' }}):</p>
+            <p>{{ playfair_result }}</p>
+        </div>
+        {% endif %}
+
+        <h2>Transposition Cipher - Mã hóa & Giải mã</h2>
+        <form method="POST" action="/transposition">
+            <label for="transposition_text">Văn bản:</label>
+            <textarea name="text" id="transposition_text" required>{{ transposition_text or '' }}</textarea>
+
+            <label for="transposition_key">Khóa (Số cột):</label>
+            <input type="number" name="key" id="transposition_key" value="{{ transposition_key or 3 }}" min="1" required>
+
+            <input type="submit" name="action" value="encrypt_transposition">
+            <input type="submit" name="action" value="decrypt_transposition">
+        </form>
+
+        {% if transposition_result %}
+        <div class="result">
+            <p>Kết quả Transposition ({{ 'Mã hóa' if transposition_action == 'encrypt_transposition' else 'Giải mã' }}):</p>
+            <p>{{ transposition_result }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
